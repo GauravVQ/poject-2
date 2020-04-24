@@ -22,7 +22,7 @@ let users = [
     email: 'X@gmail.com',
   },
   {
-    name: 'Y',
+    name: 'X',
     email: 'Y@gmail.com',
   },
   {
@@ -96,33 +96,43 @@ let users = [
 
 ];
 //FIRST API
-router.get('/user/:id', ctx => {
-  ctx.body = users[ctx.params.id];
+router.get('/users', ctx => {
+  ctx.status = 200;
+  ctx.body = users;
 });
 
 
 //Second API
-router.post('/user', ctx => {
-  ctx.request.body;
+router.post('/users', ctx => {
+  let a = ctx.request.body;
   console.log("Post request working....");
+  console.log(ctx.request.body);
+  ctx.body = ctx.request.body;
+  ctx.status = 201
 });
 
 //Third API
-router.get('/user', ctx => {
-  let name = ctx.query.name;
-  users = users.filter(function (value) {
-    return value = users.name;
-  });
-
+router.get('/user/:name', ctx => {
+  let name = ctx.params.name;
+  let requiredUser = users.find(x => x.name === name);
+  if (!requiredUser) {
+    ctx.status = 404;
+  } else {
+    ctx.body = requiredUser;
+    ctx.status = 200;
+  }
 });
 
 //Fourth API
-router.get('/user', ctx => {
+router.get('/filteredUsers', ctx => {
   let start = ctx.query.start;
   let end = ctx.query.end;
-  users = users.filter(function (index) {
-    return index = index >= start && index <= end;
-  });
+  if (start > end) {
+    return ctx.status = 400;
+  }
+  let filteredUsers = users.filter((x, i) => i >= (start - 1) && i <= (end - 1));
+  ctx.body = filteredUsers;
+  ctx.status = 200;
 });
 
 
