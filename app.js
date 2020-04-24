@@ -18,8 +18,8 @@ let users = [
   },
 
   {
-    name : 'X',
-        email :'X@gmail.com',
+    name: 'X',
+    email: 'X@gmail.com',
   },
   {
     name: 'Y',
@@ -90,7 +90,7 @@ let users = [
     email: 'R@gmail.com',
   },
   {
-    name:  'S',
+    name: 'S',
     email: 'S@gmail.com',
   },
 
@@ -109,28 +109,27 @@ router.post('/user', ctx => {
 
 //Third API
 router.get('/user', ctx => {
-  let name  = ctx.query.name;
-  users = users.filter(function (value){
-    return  value = users.name   ;
+  let name = ctx.query.name;
+  users = users.filter(function (value) {
+    return value = users.name;
   });
 
 });
 
 //Fourth API
 router.get('/user', ctx => {
-    let start  = ctx.query.start;
-    let end = ctx.query.end;
-    users = users.filter(function( index)
-  {
+  let start = ctx.query.start;
+  let end = ctx.query.end;
+  users = users.filter(function (index) {
     return index = index >= start && index <= end;
   });
 });
 
 
 app
-    .use(require('koa-body')())
-    .use(router.routes())
-    .use(router.allowedMethods());
+  .use(require('koa-body')())
+  .use(router.routes())
+  .use(router.allowedMethods());
 
 
 app.listen(3000, () => console.log('started.....'));
